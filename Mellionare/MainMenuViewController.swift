@@ -8,7 +8,6 @@
 import UIKit
 
 class MainMenuViewController: UIViewController {
-
     @IBOutlet var startGameButton: UIButton!
 
     override func viewDidLoad() {
@@ -22,19 +21,12 @@ class MainMenuViewController: UIViewController {
 
             destination.gameControllerDelegate = self
             Game.shared.startNewSession()
-
         }
     }
-
-
 }
-
-// MARK: - GameControllerDelegate
 
 extension MainMenuViewController: GameControllerDelegate {
     func didEndGame() {
         Game.shared.endSession()
     }
 }
-
-

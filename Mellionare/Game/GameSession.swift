@@ -9,23 +9,22 @@ import Foundation
 
 protocol GameSessionDelegate: AnyObject {
     func checkAnswer(id: Int) -> Bool
-    func nextQuestion() -> Void
+    func nextQuestion()
     func useHint(hint: GameHints) -> Bool
     func getQuestion() -> GameQuestion
 }
 
 class GameSession {
-
     var availableHints: [GameHints] = []
     var correctAnswersCount = 0
     var currentQuestionIndex = 0
     var currentQuestion: GameQuestion
     var gameData: [GameQuestion] = []
-    var friendHelpForQuestion: Int? = nil
-    var friendHelpAnswer: Int? = nil
+    var friendHelpForQuestion: Int?
+    var friendHelpAnswer: Int?
 
     init () {
-        gameData = GameData
+        gameData = gameQuestionsData
         availableHints = [.helpOfHall, .halfOfVariants, .callToFriend]
         currentQuestionIndex = 0
         correctAnswersCount = 0
@@ -34,9 +33,8 @@ class GameSession {
 }
 
 extension GameSession: GameSessionDelegate {
-
     func getQuestion() -> GameQuestion {
-        return currentQuestion;
+        return currentQuestion
     }
 
     func nextQuestion() {
@@ -57,11 +55,13 @@ extension GameSession: GameSessionDelegate {
         switch hint {
         case .callToFriend:
             friendHelpForQuestion = currentQuestionIndex
-            let availableAnswers = currentQuestion.answers.filter {$0.isEnabled}
+            let availableAnswers = currentQuestion.answers.filter { $0.isEnabled }
             friendHelpAnswer = availableAnswers[Int.random(in: 0..<availableAnswers.count)].id
         case .halfOfVariants:
             for _ in 0..<Int(currentQuestion.answers.count / 2) {
-                var incorrectAnswers = currentQuestion.answers.filter {$0.isEnabled && $0.id != currentQuestion.correctAnswerId}
+                var incorrectAnswers = currentQuestion.answers.filter {
+                    $0.isEnabled && ($0.id != currentQuestion.correctAnswerId)
+                }
                 incorrectAnswers[Int.random(in: 0..<incorrectAnswers.count)].isEnabled = false
             }
         case .helpOfHall:
@@ -75,7 +75,5 @@ extension GameSession: GameSessionDelegate {
         }
 
         return true
-    }   
-
+    }
 }
-

@@ -8,7 +8,6 @@
 import Foundation
 
 class Game {
-
     static let shared = Game()
 
     private(set) var gameResults: [GameResult] {
@@ -20,7 +19,6 @@ class Game {
 
     var currentSession: GameSession?
 
-
     private init() {
         gameResults = resultsCaretaker.loadResults()
     }
@@ -30,16 +28,19 @@ class Game {
     }
 
     func endSession() {
-        guard let session = currentSession else { return }
+        guard let session = currentSession else {
+            return
+        }
 
-        let result = GameResult(date: Date(),
-                                answersDone: session.correctAnswersCount,
-                                answersTotal: session.gameData.count,
-                                donePercent: Int(100 * session.correctAnswersCount / session.gameData.count ))
+        let result = GameResult(
+            date: Date(),
+            answersDone: session.correctAnswersCount,
+            answersTotal: session.gameData.count
+        )
 
         addResult(result)
 
-        currentSession = nil;
+        currentSession = nil
     }
 
     func addResult(_ result: GameResult) {
@@ -49,5 +50,4 @@ class Game {
     func clearResults() {
         gameResults = []
     }
-
 }

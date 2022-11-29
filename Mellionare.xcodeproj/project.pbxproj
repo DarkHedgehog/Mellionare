@@ -16,7 +16,7 @@
 		756EBF882932177D006DAE94 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EBF872932177D006DAE94 /* GameViewController.swift */; };
 		756EBF8A293217CC006DAE94 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EBF89293217CC006DAE94 /* Game.swift */; };
 		756EBF8C29321827006DAE94 /* GameSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EBF8B29321827006DAE94 /* GameSession.swift */; };
-		756EBF8E293218AC006DAE94 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EBF8D293218AC006DAE94 /* GameData.swift */; };
+		756EBF8E293218AC006DAE94 /* gameQuestionsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EBF8D293218AC006DAE94 /* gameQuestionsData.swift */; };
 		756EBF9029321D08006DAE94 /* GameHints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EBF8F29321D08006DAE94 /* GameHints.swift */; };
 		756EBF932934D7BA006DAE94 /* AnswerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EBF922934D7BA006DAE94 /* AnswerTableViewCell.swift */; };
 		756EBF952934E6F3006DAE94 /* GameControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EBF942934E6F3006DAE94 /* GameControllerDelegate.swift */; };
@@ -39,7 +39,7 @@
 		756EBF872932177D006DAE94 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		756EBF89293217CC006DAE94 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		756EBF8B29321827006DAE94 /* GameSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSession.swift; sourceTree = "<group>"; };
-		756EBF8D293218AC006DAE94 /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
+		756EBF8D293218AC006DAE94 /* gameQuestionsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gameQuestionsData.swift; sourceTree = "<group>"; };
 		756EBF8F29321D08006DAE94 /* GameHints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHints.swift; sourceTree = "<group>"; };
 		756EBF922934D7BA006DAE94 /* AnswerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerTableViewCell.swift; sourceTree = "<group>"; };
 		756EBF942934E6F3006DAE94 /* GameControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameControllerDelegate.swift; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				756EBF972935EF48006DAE94 /* Models */,
-				756EBF8D293218AC006DAE94 /* GameData.swift */,
+				756EBF8D293218AC006DAE94 /* gameQuestionsData.swift */,
 			);
 			path = GameData;
 			sourceTree = "<group>";
@@ -153,6 +153,7 @@
 				756EBF6B29320B7D006DAE94 /* Sources */,
 				756EBF6C29320B7D006DAE94 /* Frameworks */,
 				756EBF6D29320B7D006DAE94 /* Resources */,
+				754BC06929367BA000442993 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -209,6 +210,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		754BC06929367BA000442993 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# exit 0\nPATH=/opt/homebrew/bin:$PATH\nif [ -f ~/com.raywenderlich.swiftlint.yml ]; then\n  if which swiftlint >/dev/null; then\n    swiftlint --no-cache --config ~/com.raywenderlich.swiftlint.yml\n  fi\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		756EBF6B29320B7D006DAE94 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -225,7 +246,7 @@
 				756EBF7329320B7D006DAE94 /* AppDelegate.swift in Sources */,
 				756EBF992935EF62006DAE94 /* GameQuestion.swift in Sources */,
 				756EBF952934E6F3006DAE94 /* GameControllerDelegate.swift in Sources */,
-				756EBF8E293218AC006DAE94 /* GameData.swift in Sources */,
+				756EBF8E293218AC006DAE94 /* gameQuestionsData.swift in Sources */,
 				756EBF8C29321827006DAE94 /* GameSession.swift in Sources */,
 				756EBF7529320B7D006DAE94 /* SceneDelegate.swift in Sources */,
 				756EBFA42935FE48006DAE94 /* ResultsCaretacker.swift in Sources */,

@@ -7,16 +7,14 @@
 
 import Foundation
 
-
-
-var GameData: [GameQuestion] = [
+var gameQuestionsData: [GameQuestion] = [
     GameQuestion(id: 0,
                  text: "Каково значение фразы 'Волосы становятся дыбом'?",
                  answers: [
                     GameAnswerVariant(id: 0, text: "Неудачная прическа"),
                     GameAnswerVariant(id: 1, text: "Крайняя степень удивления"),
                     GameAnswerVariant(id: 2, text: "Крайняя степень ужаса"),
-                    GameAnswerVariant(id: 3, text: "Сильный ветер"),
+                    GameAnswerVariant(id: 3, text: "Сильный ветер")
                  ],
                  correctAnswerId: 2
     ),
@@ -26,7 +24,7 @@ var GameData: [GameQuestion] = [
                     GameAnswerVariant(id: 0, text: "Дюк Нюкем"),
                     GameAnswerVariant(id: 1, text: "Нил Армстронг"),
                     GameAnswerVariant(id: 2, text: "Чарльз Дьюк"),
-                    GameAnswerVariant(id: 3, text: "Роберт Бенкен"),
+                    GameAnswerVariant(id: 3, text: "Роберт Бенкен")
                  ],
                  correctAnswerId: 1
     ),
@@ -36,7 +34,7 @@ var GameData: [GameQuestion] = [
                     GameAnswerVariant(id: 0, text: "Агрессея"),
                     GameAnswerVariant(id: 1, text: "Агресия"),
                     GameAnswerVariant(id: 2, text: "Огресия"),
-                    GameAnswerVariant(id: 3, text: "Агрессия"),
+                    GameAnswerVariant(id: 3, text: "Агрессия")
                  ],
                  correctAnswerId: 3
     ),
@@ -46,7 +44,7 @@ var GameData: [GameQuestion] = [
                     GameAnswerVariant(id: 0, text: "Ангары"),
                     GameAnswerVariant(id: 1, text: "Мамайки"),
                     GameAnswerVariant(id: 2, text: "Оки"),
-                    GameAnswerVariant(id: 3, text: "Енисея"),
+                    GameAnswerVariant(id: 3, text: "Енисея")
                  ],
                  correctAnswerId: 3
     ),
@@ -56,8 +54,8 @@ var GameData: [GameQuestion] = [
                     GameAnswerVariant(id: 0, text: "Сопрано"),
                     GameAnswerVariant(id: 1, text: "Меццо-сопрано"),
                     GameAnswerVariant(id: 2, text: "Контральто"),
-                    GameAnswerVariant(id: 3, text: "Бас"),
+                    GameAnswerVariant(id: 3, text: "Бас")
                  ],
                  correctAnswerId: 0
-    ),
+    )
 ]

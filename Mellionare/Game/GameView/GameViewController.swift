@@ -7,8 +7,6 @@
 
 import UIKit
 
-
-
 class GameViewController: UIViewController {
 
     @IBOutlet var questionLabel: UILabel!
