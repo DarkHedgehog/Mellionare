@@ -11,12 +11,18 @@ class Game {
 
     static let shared = Game()
 
-    private(set) var gameResults: [GameResult] = []
+    private(set) var gameResults: [GameResult] {
+        didSet {
+            resultsCaretaker.saveResults(gameResults)
+        }
+    }
+    private let resultsCaretaker = ResultsCaretacker()
 
     var currentSession: GameSession?
 
 
     private init() {
+        gameResults = resultsCaretaker.loadResults()
     }
 
     func startNewSession() {

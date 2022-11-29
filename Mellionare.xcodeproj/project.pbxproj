@@ -24,6 +24,7 @@
 		756EBF9B2935EF7A006DAE94 /* GameAnswerVariant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EBF9A2935EF7A006DAE94 /* GameAnswerVariant.swift */; };
 		756EBF9D2935EF8D006DAE94 /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EBF9C2935EF8D006DAE94 /* GameResult.swift */; };
 		756EBFA12935F261006DAE94 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EBFA02935F261006DAE94 /* ResultsViewController.swift */; };
+		756EBFA42935FE48006DAE94 /* ResultsCaretacker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EBFA32935FE48006DAE94 /* ResultsCaretacker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		756EBF9A2935EF7A006DAE94 /* GameAnswerVariant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAnswerVariant.swift; sourceTree = "<group>"; };
 		756EBF9C2935EF8D006DAE94 /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
 		756EBFA02935F261006DAE94 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		756EBFA32935FE48006DAE94 /* ResultsCaretacker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsCaretacker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 		756EBF8629321755006DAE94 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				756EBFA32935FE48006DAE94 /* ResultsCaretacker.swift */,
 				756EBF89293217CC006DAE94 /* Game.swift */,
 				756EBF8B29321827006DAE94 /* GameSession.swift */,
 				756EBF962935EF2D006DAE94 /* GameData */,
@@ -225,6 +228,7 @@
 				756EBF8E293218AC006DAE94 /* GameData.swift in Sources */,
 				756EBF8C29321827006DAE94 /* GameSession.swift in Sources */,
 				756EBF7529320B7D006DAE94 /* SceneDelegate.swift in Sources */,
+				756EBFA42935FE48006DAE94 /* ResultsCaretacker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
