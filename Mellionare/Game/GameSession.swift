@@ -12,17 +12,15 @@ protocol GameSessionDelegate: AnyObject {
     func resolveQuestion()
     func useHint(hint: GameHints) -> Bool
     func getQuestion() -> GameQuestion
+    func getProgressObservable() -> Observable<Int>
+    func questionsCount() -> Int
 }
 
 class GameSession {
     var availableHints: [GameHints] = []
-    var correctAnswersCount = 0
+    var correctAnswersCount: Observable<Int>
     var currentQuestionIndex = 0
-    var currentQuestion: GameQuestion {
-        get {
-            return gameQuestions[currentQuestionIndex]
-        }
-    }
+    var currentQuestion: GameQuestion { gameQuestions[currentQuestionIndex] } 
     var gameQuestions: [GameQuestion] = []
     var questionOrderStrategy: QuestionOrderStrategy
     var resolveQuestionsIndexes: [Int] = []
@@ -33,7 +31,7 @@ class GameSession {
         gameQuestions = gameQuestionsData
         questionOrderStrategy = stratege
         availableHints = [.helpOfHall, .halfOfVariants, .callToFriend]
-        correctAnswersCount = 0
+        correctAnswersCount = Observable(0)
         setNextQuestion()
     }
 
@@ -49,14 +47,22 @@ extension GameSession: GameSessionDelegate {
         return currentQuestion
     }
 
+    func questionsCount() -> Int {
+        return gameQuestions.count
+    }
+
     func resolveQuestion() {
-        correctAnswersCount += 1
+        correctAnswersCount.value += 1
         gameQuestions[currentQuestionIndex].isResolved = true
         setNextQuestion()
     }
 
     func checkAnswer(id: Int) -> Bool {
         return id == gameQuestions[currentQuestionIndex].correctAnswerId
+    }
+
+    func getProgressObservable() -> Observable<Int> {
+        return correctAnswersCount
     }
 
     func useHint(hint: GameHints) -> Bool {

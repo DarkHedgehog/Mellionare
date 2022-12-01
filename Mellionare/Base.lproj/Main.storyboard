@@ -76,7 +76,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3FY-oi-sve">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="20.333333333333332"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progress" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Yy-7G-GiD">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progress" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Yy-7G-GiD">
                                                 <rect key="frame" x="0.0" y="0.0" width="393" height="20.333333333333332"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -165,6 +165,7 @@
                     <navigationItem key="navigationItem" id="yGn-pB-RPK"/>
                     <connections>
                         <outlet property="answersTable" destination="2Uz-1f-3VT" id="zPF-99-7UE"/>
+                        <outlet property="progressLabel" destination="9Yy-7G-GiD" id="vXu-0e-BkE"/>
                         <outlet property="questionLabel" destination="b5b-ae-tQd" id="8Nr-tv-KZP"/>
                     </connections>
                 </viewController>

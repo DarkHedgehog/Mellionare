@@ -44,7 +44,7 @@ class Game {
 
         let result = GameResult(
             date: Date(),
-            answersDone: session.correctAnswersCount,
+            answersDone: session.correctAnswersCount.value,
             answersTotal: session.gameQuestions.count
         )
 
