@@ -9,7 +9,7 @@ import Foundation
 
 protocol GameSessionDelegate: AnyObject {
     func checkAnswer(id: Int) -> Bool
-    func nextQuestion()
+    func resolveQuestion()
     func useHint(hint: GameHints) -> Bool
     func getQuestion() -> GameQuestion
 }
@@ -18,17 +18,29 @@ class GameSession {
     var availableHints: [GameHints] = []
     var correctAnswersCount = 0
     var currentQuestionIndex = 0
-    var currentQuestion: GameQuestion
-    var gameData: [GameQuestion] = []
+    var currentQuestion: GameQuestion {
+        get {
+            return gameQuestions[currentQuestionIndex]
+        }
+    }
+    var gameQuestions: [GameQuestion] = []
+    var questionOrderStrategy: QuestionOrderStrategy
+    var resolveQuestionsIndexes: [Int] = []
     var friendHelpForQuestion: Int?
     var friendHelpAnswer: Int?
 
-    init () {
-        gameData = gameQuestionsData
+    init (stratege: QuestionOrderStrategy) {
+        gameQuestions = gameQuestionsData
+        questionOrderStrategy = stratege
         availableHints = [.helpOfHall, .halfOfVariants, .callToFriend]
-        currentQuestionIndex = 0
         correctAnswersCount = 0
-        currentQuestion = gameData[currentQuestionIndex]
+        setNextQuestion()
+    }
+
+    private func setNextQuestion() {
+        let availableQuestions = gameQuestions.filter { $0.isResolved == false }
+        let nextQuestionId = questionOrderStrategy.nextQuestionId(questions: availableQuestions)
+        currentQuestionIndex = gameQuestions.firstIndex { $0.id == nextQuestionId } ?? 0
     }
 }
 
@@ -37,14 +49,14 @@ extension GameSession: GameSessionDelegate {
         return currentQuestion
     }
 
-    func nextQuestion() {
+    func resolveQuestion() {
         correctAnswersCount += 1
-        currentQuestionIndex += 1
-        currentQuestion = gameData[currentQuestionIndex]
+        gameQuestions[currentQuestionIndex].isResolved = true
+        setNextQuestion()
     }
 
     func checkAnswer(id: Int) -> Bool {
-        return id == gameData[currentQuestionIndex].correctAnswerId
+        return id == gameQuestions[currentQuestionIndex].correctAnswerId
     }
 
     func useHint(hint: GameHints) -> Bool {
@@ -69,9 +81,9 @@ extension GameSession: GameSessionDelegate {
             for i in 0..<Int(currentQuestion.answers.count - 1) {
                 let vote = Int.random(in: 0...totalChance)
                 totalChance -= vote
-                currentQuestion.answers[i].hallVote = vote
+                gameQuestions[currentQuestionIndex].answers[i].hallVote = vote
             }
-            currentQuestion.answers[currentQuestion.answers.count].hallVote = totalChance
+            gameQuestions[currentQuestionIndex].answers[currentQuestion.answers.count].hallVote = totalChance
         }
 
         return true

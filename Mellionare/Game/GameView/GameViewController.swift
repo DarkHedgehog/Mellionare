@@ -80,7 +80,7 @@ extension GameViewController: UITableViewDelegate {
         let isCorrect = gameSession.checkAnswer(id: answerId)
 
         if (isCorrect) {
-            gameSession.nextQuestion()
+            gameSession.resolveQuestion()
             updateSessionData()
         } else {
 

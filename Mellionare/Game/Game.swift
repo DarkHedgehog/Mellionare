@@ -33,7 +33,8 @@ class Game {
 
     // MARK: - Functions
     func startNewSession() {
-        currentSession = GameSession()
+        let selectedStratege = gameSettings.questionOrder.strategyObject()
+        currentSession = GameSession(stratege: selectedStratege)
     }
 
     func endSession() {
@@ -44,7 +45,7 @@ class Game {
         let result = GameResult(
             date: Date(),
             answersDone: session.correctAnswersCount,
-            answersTotal: session.gameData.count
+            answersTotal: session.gameQuestions.count
         )
 
         addResult(result)

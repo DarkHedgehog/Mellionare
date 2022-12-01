@@ -11,3 +11,15 @@ enum QuestionOrder: Codable {
     case ordered
     case random
 }
+
+extension QuestionOrder {
+    func strategyObject() -> QuestionOrderStrategy {
+        switch self {
+        case .ordered:
+            return AscQuestionOrderStrategy()
+        case .random:
+            return RandomQuestionOrderStrategy()
+        }
+    }
+}
+

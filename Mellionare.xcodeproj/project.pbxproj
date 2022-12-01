@@ -11,6 +11,9 @@
 		754BC0722938A69A00442993 /* QuestionOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754BC0712938A69A00442993 /* QuestionOrder.swift */; };
 		754BC0742938A7B100442993 /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754BC0732938A7B100442993 /* GameSettings.swift */; };
 		754BC0762938A91800442993 /* SettingsCaretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754BC0752938A91800442993 /* SettingsCaretaker.swift */; };
+		754BC0792938BA1C00442993 /* QuestionOrderStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754BC0782938BA1C00442993 /* QuestionOrderStrategy.swift */; };
+		754BC07B2938BD8F00442993 /* AscQuestionOrderStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754BC07A2938BD8F00442993 /* AscQuestionOrderStrategy.swift */; };
+		754BC07D2938BEE900442993 /* RandomQuestionOrderStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754BC07C2938BEE900442993 /* RandomQuestionOrderStrategy.swift */; };
 		756EBF7329320B7D006DAE94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EBF7229320B7D006DAE94 /* AppDelegate.swift */; };
 		756EBF7529320B7D006DAE94 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EBF7429320B7D006DAE94 /* SceneDelegate.swift */; };
 		756EBF7729320B7D006DAE94 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EBF7629320B7D006DAE94 /* MainMenuViewController.swift */; };
@@ -36,6 +39,9 @@
 		754BC0712938A69A00442993 /* QuestionOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionOrder.swift; sourceTree = "<group>"; };
 		754BC0732938A7B100442993 /* GameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettings.swift; sourceTree = "<group>"; };
 		754BC0752938A91800442993 /* SettingsCaretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCaretaker.swift; sourceTree = "<group>"; };
+		754BC0782938BA1C00442993 /* QuestionOrderStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionOrderStrategy.swift; sourceTree = "<group>"; };
+		754BC07A2938BD8F00442993 /* AscQuestionOrderStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AscQuestionOrderStrategy.swift; sourceTree = "<group>"; };
+		754BC07C2938BEE900442993 /* RandomQuestionOrderStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomQuestionOrderStrategy.swift; sourceTree = "<group>"; };
 		756EBF6F29320B7D006DAE94 /* Mellionare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mellionare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		756EBF7229320B7D006DAE94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		756EBF7429320B7D006DAE94 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +102,16 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		754BC0772938BA0200442993 /* Strategies */ = {
+			isa = PBXGroup;
+			children = (
+				754BC0782938BA1C00442993 /* QuestionOrderStrategy.swift */,
+				754BC07A2938BD8F00442993 /* AscQuestionOrderStrategy.swift */,
+				754BC07C2938BEE900442993 /* RandomQuestionOrderStrategy.swift */,
+			);
+			path = Strategies;
+			sourceTree = "<group>";
+		};
 		756EBF6629320B7D006DAE94 = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +147,7 @@
 		756EBF8629321755006DAE94 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				754BC0772938BA0200442993 /* Strategies */,
 				756EBFA32935FE48006DAE94 /* ResultsCaretacker.swift */,
 				756EBF89293217CC006DAE94 /* Game.swift */,
 				756EBF8B29321827006DAE94 /* GameSession.swift */,
@@ -272,6 +289,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				756EBF882932177D006DAE94 /* GameViewController.swift in Sources */,
+				754BC0792938BA1C00442993 /* QuestionOrderStrategy.swift in Sources */,
+				754BC07D2938BEE900442993 /* RandomQuestionOrderStrategy.swift in Sources */,
+				754BC07B2938BD8F00442993 /* AscQuestionOrderStrategy.swift in Sources */,
 				756EBF9B2935EF7A006DAE94 /* GameAnswerVariant.swift in Sources */,
 				754BC0742938A7B100442993 /* GameSettings.swift in Sources */,
 				754BC0722938A69A00442993 /* QuestionOrder.swift in Sources */,
