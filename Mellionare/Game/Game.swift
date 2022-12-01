@@ -10,19 +10,28 @@ import Foundation
 class Game {
     static let shared = Game()
 
+    // MARK: - private properties
     private(set) var gameResults: [GameResult] {
         didSet {
             resultsCaretaker.saveResults(gameResults)
         }
     }
-    private let resultsCaretaker = ResultsCaretacker()
 
+    private(set) var gameSettings: GameSettings
+
+    private let resultsCaretaker = ResultsCaretacker()
+    private let settingsCaretaker = SettingsCaretacker()
+
+    // MARK: - Properties
     var currentSession: GameSession?
 
+    // MARK: - Constructors
     private init() {
         gameResults = resultsCaretaker.loadResults()
+        gameSettings = settingsCaretaker.loadSettings()
     }
 
+    // MARK: - Functions
     func startNewSession() {
         currentSession = GameSession()
     }
@@ -39,7 +48,6 @@ class Game {
         )
 
         addResult(result)
-
         currentSession = nil
     }
 
@@ -49,5 +57,9 @@ class Game {
 
     func clearResults() {
         gameResults = []
+    }
+
+    func applySettings() {
+        settingsCaretaker.saveSettings(gameSettings)
     }
 }

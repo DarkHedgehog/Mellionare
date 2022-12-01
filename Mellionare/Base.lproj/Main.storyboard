@@ -32,6 +32,15 @@
                                     <segue destination="B6Q-ad-Tg9" kind="show" id="608-qZ-RQI"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ghg-ft-GFi">
+                                <rect key="frame" x="320" y="103" width="52" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="gear" catalog="system"/>
+                                <connections>
+                                    <segue destination="opB-E1-PgJ" kind="show" id="XH0-LU-8mj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -231,8 +240,62 @@
             </objects>
             <point key="canvasLocation" x="32.824427480916029" y="-27.464788732394368"/>
         </scene>
+        <!--Settings Table View Controller-->
+        <scene sceneID="tjo-Ro-KJv">
+            <objects>
+                <tableViewController id="opB-E1-PgJ" customClass="SettingsTableViewController" customModule="Mellionare" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="UZx-GE-EcX">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="Вопросы" footerTitle="Порядок следования вопросов" id="ErA-n2-TFT">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="hXr-rt-J4m">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hXr-rt-J4m" id="sVa-nS-cVY">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="AyD-XZ-uuc">
+                                                    <rect key="frame" x="0.0" y="6.3333333333333321" width="393" height="31.999999999999996"/>
+                                                    <segments>
+                                                        <segment title="По порядку"/>
+                                                        <segment title="Случайно"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="questionOrderChanged:" destination="opB-E1-PgJ" eventType="valueChanged" id="o8F-hJ-X3r"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="AyD-XZ-uuc" firstAttribute="centerY" secondItem="sVa-nS-cVY" secondAttribute="centerY" id="6za-j5-Msf"/>
+                                                <constraint firstAttribute="trailing" secondItem="AyD-XZ-uuc" secondAttribute="trailing" id="GdJ-ZV-c2J"/>
+                                                <constraint firstItem="AyD-XZ-uuc" firstAttribute="leading" secondItem="sVa-nS-cVY" secondAttribute="leading" id="MrB-Ci-TZK"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="opB-E1-PgJ" id="uUm-GU-CVP"/>
+                            <outlet property="delegate" destination="opB-E1-PgJ" id="mMX-1B-nap"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="6fj-zO-VeX"/>
+                    <connections>
+                        <outlet property="questionStratege" destination="AyD-XZ-uuc" id="oU8-Ks-oHu"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7eO-Rx-GGx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1844" y="-708"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="gear" catalog="system" width="128" height="122"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

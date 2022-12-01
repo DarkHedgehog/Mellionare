@@ -7,9 +7,9 @@
 
 import Foundation
 
-typealias Memento = Data
 
 class ResultsCaretacker {
+    typealias Memento = Data
 
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
