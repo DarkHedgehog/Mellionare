@@ -89,13 +89,13 @@ extension GameViewController: UITableViewDelegate {
         } else {
             let gameOverMessage = UIAlertController(title: "Game over", message: "Wrong answer", preferredStyle: .alert)
             gameOverMessage.addAction(
-                UIAlertAction(title: "OK", style: .default, handler: {_ in
+                UIAlertAction(title: "OK", style: .default) { _ in
                     self.gameControllerDelegate?.didEndGame()
                     DispatchQueue.main.async {
                         self.navigationController?.popViewController(animated: true)
                         self.dismiss(animated: true, completion: nil)
                     }
-                }))
+                })
             self.present(gameOverMessage, animated: true)
         }
     }

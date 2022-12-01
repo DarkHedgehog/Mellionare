@@ -33,6 +33,10 @@
 		756EBFA12935F261006DAE94 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EBFA02935F261006DAE94 /* ResultsViewController.swift */; };
 		756EBFA42935FE48006DAE94 /* ResultsCaretacker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EBFA32935FE48006DAE94 /* ResultsCaretacker.swift */; };
 		75DC44AC2938D30F00361A6A /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC44AB2938D30F00361A6A /* Observable.swift */; };
+		75DC44B12938E42400361A6A /* RadioElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC44B02938E42400361A6A /* RadioElementView.swift */; };
+		75DC44B32938E62400361A6A /* QuestionEditViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC44B22938E62400361A6A /* QuestionEditViewCell.swift */; };
+		75DC44B62938F8AA00361A6A /* RadioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC44B52938F8AA00361A6A /* RadioView.swift */; };
+		75DC44B92939244C00361A6A /* QuestionsEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DC44B82939244C00361A6A /* QuestionsEditViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +68,10 @@
 		756EBFA02935F261006DAE94 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		756EBFA32935FE48006DAE94 /* ResultsCaretacker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsCaretacker.swift; sourceTree = "<group>"; };
 		75DC44AB2938D30F00361A6A /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		75DC44B02938E42400361A6A /* RadioElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioElementView.swift; sourceTree = "<group>"; };
+		75DC44B22938E62400361A6A /* QuestionEditViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionEditViewCell.swift; sourceTree = "<group>"; };
+		75DC44B52938F8AA00361A6A /* RadioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioView.swift; sourceTree = "<group>"; };
+		75DC44B82939244C00361A6A /* QuestionsEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsEditViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +88,7 @@
 		754BC06A2938A29200442993 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				75DC44B72939203B00361A6A /* QuestionEdit */,
 				754BC06D2938A34300442993 /* SettingsTableViewController.swift */,
 				754BC0732938A7B100442993 /* GameSettings.swift */,
 				754BC0752938A91800442993 /* SettingsCaretaker.swift */,
@@ -134,6 +143,7 @@
 		756EBF7129320B7D006DAE94 /* Mellionare */ = {
 			isa = PBXGroup;
 			children = (
+				75DC44B42938EA1A00361A6A /* Controls */,
 				754BC0702938A68600442993 /* Utils */,
 				754BC06F2938A63C00442993 /* Fundamental */,
 				754BC06A2938A29200442993 /* Settings */,
@@ -197,6 +207,24 @@
 				756EBFA02935F261006DAE94 /* ResultsViewController.swift */,
 			);
 			path = Results;
+			sourceTree = "<group>";
+		};
+		75DC44B42938EA1A00361A6A /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				75DC44B02938E42400361A6A /* RadioElementView.swift */,
+				75DC44B52938F8AA00361A6A /* RadioView.swift */,
+			);
+			path = Controls;
+			sourceTree = "<group>";
+		};
+		75DC44B72939203B00361A6A /* QuestionEdit */ = {
+			isa = PBXGroup;
+			children = (
+				75DC44B22938E62400361A6A /* QuestionEditViewCell.swift */,
+				75DC44B82939244C00361A6A /* QuestionsEditViewController.swift */,
+			);
+			path = QuestionEdit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,6 +325,7 @@
 				754BC07B2938BD8F00442993 /* AscQuestionOrderStrategy.swift in Sources */,
 				756EBF9B2935EF7A006DAE94 /* GameAnswerVariant.swift in Sources */,
 				754BC0742938A7B100442993 /* GameSettings.swift in Sources */,
+				75DC44B62938F8AA00361A6A /* RadioView.swift in Sources */,
 				754BC0722938A69A00442993 /* QuestionOrder.swift in Sources */,
 				754BC0762938A91800442993 /* SettingsCaretaker.swift in Sources */,
 				756EBF9D2935EF8D006DAE94 /* GameResult.swift in Sources */,
@@ -312,7 +341,10 @@
 				756EBF8E293218AC006DAE94 /* gameQuestionsData.swift in Sources */,
 				756EBF8C29321827006DAE94 /* GameSession.swift in Sources */,
 				756EBF7529320B7D006DAE94 /* SceneDelegate.swift in Sources */,
+				75DC44B12938E42400361A6A /* RadioElementView.swift in Sources */,
 				756EBFA42935FE48006DAE94 /* ResultsCaretacker.swift in Sources */,
+				75DC44B92939244C00361A6A /* QuestionsEditViewController.swift in Sources */,
+				75DC44B32938E62400361A6A /* QuestionEditViewCell.swift in Sources */,
 				75DC44AC2938D30F00361A6A /* Observable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
