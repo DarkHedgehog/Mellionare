@@ -13,28 +13,40 @@ class Game {
     // MARK: - private properties
     private(set) var gameResults: [GameResult] {
         didSet {
-            resultsCaretaker.saveResults(gameResults)
+            resultsCaretaker.saveState(gameResults)
         }
     }
 
+
     private(set) var gameSettings: GameSettings
 
-    private let resultsCaretaker = ResultsCaretacker()
-    private let settingsCaretaker = SettingsCaretacker()
+    private let resultsCaretaker = Caretacker<[GameResult]>(key: "MellionareResults")
+    private let settingsCaretaker = Caretacker<GameSettings>(key: "MellionareSettings")
+    private let questionsCaretaker = Caretacker<[GameQuestion]>(key: "CustomQuestions")
 
     // MARK: - Properties
     var currentSession: GameSession?
+    var questionData = gameQuestionsData
+    var questionCustomData: [GameQuestion] {
+        didSet {
+            questionsCaretaker.saveState(questionCustomData)
+        }
+    }
 
     // MARK: - Constructors
     private init() {
-        gameResults = resultsCaretaker.loadResults()
-        gameSettings = settingsCaretaker.loadSettings()
+        gameResults = resultsCaretaker.loadState() ?? []
+        gameSettings = settingsCaretaker.loadState() ?? GameSettings(questionOrder: .ordered)
+        questionCustomData = questionsCaretaker.loadState() ?? []
     }
 
     // MARK: - Functions
     func startNewSession() {
         let selectedStratege = gameSettings.questionOrder.strategyObject()
-        currentSession = GameSession(stratege: selectedStratege)
+        var questions: [GameQuestion] = []
+        questions.append(contentsOf: questionData)
+        questions.append(contentsOf: questionCustomData)
+        currentSession = GameSession(stratege: selectedStratege, questions: questions)
     }
 
     func endSession() {
@@ -61,6 +73,6 @@ class Game {
     }
 
     func applySettings() {
-        settingsCaretaker.saveSettings(gameSettings)
+        settingsCaretaker.saveState(gameSettings)
     }
 }

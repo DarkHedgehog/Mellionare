@@ -1,21 +1,24 @@
 //
-//  GameCaretacker.swift
+//  Caretaker.swift
 //  Mellionare
 //
-//  Created by Aleksandr Derevenskih on 29.11.2022.
+//  Created by Aleksandr Derevenskih on 04.12.2022.
 //
 
 import Foundation
 
-
-class ResultsCaretacker {
+class Caretacker<Type: Codable> {
     typealias Memento = Data
 
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
-    private let key = "MellionareResults"
+    private let key: String // = "MellionareResults"
 
-    func saveResults(_ results: [GameResult]) {
+    init(key: String) {
+        self.key = key
+    }
+
+    func saveState(_ results: Type) {
         do {
             let data: Memento = try encoder.encode(results)
             UserDefaults.standard.set(data, forKey: key)
@@ -24,16 +27,16 @@ class ResultsCaretacker {
         }
     }
 
-    func loadResults() -> [GameResult] {
+    func loadState() -> Type? {
         guard let data = UserDefaults.standard.value(forKey: key) as? Memento else {
-            return []
+            return nil
         }
 
         do {
-            return try decoder.decode([GameResult].self, from: data)            
+            return try decoder.decode(Type.self, from: data)
         } catch {
             print(error.localizedDescription)
-            return []
+            return nil
         }
     }
 }

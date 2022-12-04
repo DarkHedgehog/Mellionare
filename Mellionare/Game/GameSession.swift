@@ -27,8 +27,8 @@ class GameSession {
     var friendHelpForQuestion: Int?
     var friendHelpAnswer: Int?
 
-    init (stratege: QuestionOrderStrategy) {
-        gameQuestions = gameQuestionsData
+    init (stratege: QuestionOrderStrategy, questions: [GameQuestion]) {
+        gameQuestions = questions
         questionOrderStrategy = stratege
         availableHints = [.helpOfHall, .halfOfVariants, .callToFriend]
         correctAnswersCount = Observable(0)
