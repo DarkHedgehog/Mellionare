@@ -9,28 +9,18 @@ import UIKit
 
 class QuestionsEditViewController: UIViewController {
 
+    // MARK: - IBOutlet
     @IBOutlet weak var tableView: UITableView!
 
-    @IBAction func addQuestion(_ sender: Any) {
-        let emptyQuestionRecord = GameQuestion(
-            id: genQuestionId(),
-            text: "",
-            answers: [
-                GameAnswerVariant(id: 0, text: ""),
-                GameAnswerVariant(id: 1, text: ""),
-                GameAnswerVariant(id: 2, text: ""),
-                GameAnswerVariant(id: 3, text: "")
-            ],
-            correctAnswerId: 0
-        )
-        questions.append(emptyQuestionRecord)
-        tableView.reloadData()
-    }
-
+    // MARK: - Public Properties
     var questions: [GameQuestion] = []
+    var questionsBuilder = QuestionsBuilder()
 
-    private var questionIdGen = 0;
 
+    // MARK: - Private Properties
+    private var questionIdGen = 0
+
+    // MARK: - Initializers
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,9 +30,43 @@ class QuestionsEditViewController: UIViewController {
         tableView.allowsSelection = false
     }
 
+    // MARK: - IBAction
+    @IBAction func addQuestion(_ sender: Any) {
+        let qId = genQuestionId()
+        questionsBuilder.addQuestion(id: qId, text: "Вопрос \(qId)")
+
+        for i in 0..<4 {
+            questionsBuilder.addAnswerVariant(id: qId, answerId: i, text: "Вариант \(i + 1)")
+        }
+        questionsBuilder.addCorrectAnswerId(id: qId, answerId: 0)
+        questions = questionsBuilder.build()
+
+        tableView.reloadData()
+    }
+
+    // MARK: - Private Methods
     private func genQuestionId() -> Int {
         questionIdGen += 1
         return questionIdGen
+    }
+}
+
+extension QuestionsEditViewController: RadioViewDelegate {
+    func switchChanged(sender: RadioView, index: Int) {
+        let qId = sender.tag
+        questionsBuilder.addCorrectAnswerId(id: qId, answerId: index)
+    }
+
+    func textChanged(sender: RadioView, index: Int, text: String) {
+        let qId = sender.tag
+        questionsBuilder.addAnswerVariant(id: qId, answerId: index, text: text)
+    }
+}
+
+extension QuestionsEditViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let qId = textField.tag
+        questionsBuilder.addQuestion(id: qId, text: textField.text ?? "")
     }
 }
 
@@ -67,8 +91,16 @@ extension QuestionsEditViewController: UITableViewDataSource {
 
         let question = questions[indexPath.row]
         cell.questionText.text = question.text
+        cell.questionText.tag = question.id
+        cell.questionText.delegate = self
+
         let answersStrings = question.answers.map { $0.text }
+        cell.answersVariations.tag = question.id
+        cell.answersVariations.delegate = self
+        cell.answersVariations.selectedIndex = question.correctAnswerId
         cell.answersVariations.prepareElements(answersStrings, selectedIndex: question.correctAnswerId)
+
         return cell
     }
 }
+

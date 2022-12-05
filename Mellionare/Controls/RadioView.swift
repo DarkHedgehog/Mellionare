@@ -7,11 +7,18 @@
 
 import UIKit
 
+
+protocol RadioViewDelegate: AnyObject {
+    func switchChanged(sender: RadioView, index: Int)
+    func textChanged(sender: RadioView, index: Int, text: String)
+}
+
 @IBDesignable
 class RadioView: UIView {
 
     var strings: [String] = []
     var selectedIndex: Int = 0
+    var delegate: RadioViewDelegate?
 
     private let elementHeigth = 36.0
     private var elementsCount = 0
@@ -19,12 +26,12 @@ class RadioView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        prepareElements(["Value 1", "Value 2", "value3", "value-4"], selectedIndex: 2)
+        prepareElements([""], selectedIndex: 0)
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        prepareElements(["Value 1", "Value 2", "value3", "value-4"], selectedIndex: 2)
+        prepareElements([""], selectedIndex: 0)
     }
 
     public func prepareElements(_ strings: [String], selectedIndex: Int) {
@@ -46,12 +53,6 @@ class RadioView: UIView {
             elements.append(element)
             addSubview(element)
         }
-
-//        frame = CGRect(x: 0, y: 0, width: frame.width, height: 300)
-//        backgroundColor = .red
-        setNeedsLayout()
-
-//        isUserInteractionEnabled = true
     }
 
     override func prepareForInterfaceBuilder() {
@@ -60,7 +61,6 @@ class RadioView: UIView {
     }
 
     private func clearSubviews() {
-
         for element in elements {
             element.removeFromSuperview()
         }
@@ -74,9 +74,11 @@ extension RadioView: RadioElementViewDelegate {
         for i in 0..<elementsCount {
             elements[i].setOn( i == selectedIndex)
         }
+        delegate?.switchChanged(sender: self, index: selectedIndex)
     }
     func textChanged(sender: RadioElementView, text: String) {
         selectedIndex = sender.tag
         strings[selectedIndex] = text
+        delegate?.textChanged(sender: self, index: selectedIndex, text: text)
     }
 }

@@ -15,11 +15,14 @@ protocol RadioElementViewDelegate: AnyObject {
 @IBDesignable
 class RadioElementView: UIView {    
 
-    var delegate: RadioElementViewDelegate?
-
+    // MARK: - Visual Components
     private var switcher = UISwitch()
     private var textField = UITextField()
 
+    // MARK: - Public Properties
+    var delegate: RadioElementViewDelegate?
+
+    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         prepareElements()
@@ -30,7 +33,7 @@ class RadioElementView: UIView {
         prepareElements()
     }
 
-
+    // MARK: - Public methods
     public func setOn(_ on: Bool) {
         self.switcher.setOn(on, animated: true)
     }
@@ -43,7 +46,8 @@ class RadioElementView: UIView {
         textField.text = text
     }
 
-    public func prepareElements() {
+    // MARK: - Private methods
+    private func prepareElements() {
         switcher = UISwitch(frame: frame)
         switcher.setOn(true, animated: false)
         switcher.addAction(

@@ -17,7 +17,6 @@ class Game {
         }
     }
 
-
     private(set) var gameSettings: GameSettings
 
     private let resultsCaretaker = Caretacker<[GameResult]>(key: "MellionareResults")
