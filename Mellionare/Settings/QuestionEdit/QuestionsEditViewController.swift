@@ -11,6 +11,7 @@ class QuestionsEditViewController: UIViewController {
 
     // MARK: - IBOutlet
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addAllButton: UIButton!
 
     // MARK: - Public Properties
     var questions: [GameQuestion] = []
@@ -28,6 +29,8 @@ class QuestionsEditViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.allowsSelection = false
+
+        addAllButton.isHidden = true
     }
 
     // MARK: - IBAction
@@ -41,7 +44,14 @@ class QuestionsEditViewController: UIViewController {
         questionsBuilder.addCorrectAnswerId(id: qId, answerId: 0)
         questions = questionsBuilder.build()
 
+        addAllButton.isHidden = false
+
         tableView.reloadData()
+    }
+
+    @IBAction func saveAllQuestions(_ sender: Any) {
+        Game.shared.questionCustomData = questionsBuilder.build()
+        dismiss(animated: true)
     }
 
     // MARK: - Private Methods

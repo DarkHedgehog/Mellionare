@@ -496,6 +496,15 @@
                                     <action selector="addQuestion:" destination="c4h-fK-Rq0" eventType="touchUpInside" id="6Sn-Dp-JM3"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VrW-P5-lwO">
+                                <rect key="frame" x="0.0" y="778" width="133" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Добавить все"/>
+                                <connections>
+                                    <action selector="saveAllQuestions:" destination="c4h-fK-Rq0" eventType="touchUpInside" id="B9n-l2-JQg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="pMD-Xj-MXG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -509,6 +518,7 @@
                     <navigationItem key="navigationItem" id="l7W-po-7yn"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="addAllButton" destination="VrW-P5-lwO" id="Gtp-DZ-zGb"/>
                         <outlet property="tableView" destination="lbd-CH-5tO" id="nrz-eI-DIZ"/>
                     </connections>
                 </viewController>
