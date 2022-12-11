@@ -15,7 +15,7 @@ enum GameHints {
 
 extension GameHints {
     func text() -> String {
-        switch (self) {
+        switch self {
         case .callToFriend: return "Звонок другу"
         case .halfOfVariants: return "50:50"
         case .helpOfHall: return "Помощь зала"

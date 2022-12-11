@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GameAnswerVariant {
+struct GameAnswerVariant: Codable {
     var id: Int
     var text: String
 
@@ -16,4 +16,9 @@ struct GameAnswerVariant {
 
     /// Percent for hint "Help by Hall"
     var hallVote: Int? = nil
+
+    private enum CodingKeys: String, CodingKey {
+        case id, text
+    }
+
 }

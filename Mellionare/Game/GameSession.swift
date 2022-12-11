@@ -9,44 +9,60 @@ import Foundation
 
 protocol GameSessionDelegate: AnyObject {
     func checkAnswer(id: Int) -> Bool
-    func nextQuestion() -> Void
+    func resolveQuestion()
     func useHint(hint: GameHints) -> Bool
     func getQuestion() -> GameQuestion
+    func getProgressObservable() -> Observable<Int>
+    func questionsCount() -> Int
 }
 
 class GameSession {
-
     var availableHints: [GameHints] = []
-    var correctAnswersCount = 0
+    var correctAnswersCount: Observable<Int>
     var currentQuestionIndex = 0
-    var currentQuestion: GameQuestion
-    var gameData: [GameQuestion] = []
-    var friendHelpForQuestion: Int? = nil
-    var friendHelpAnswer: Int? = nil
+    var currentQuestion: GameQuestion { gameQuestions[currentQuestionIndex] } 
+    var gameQuestions: [GameQuestion] = []
+    var questionOrderStrategy: QuestionOrderStrategy
+    var resolveQuestionsIndexes: [Int] = []
+    var friendHelpForQuestion: Int?
+    var friendHelpAnswer: Int?
 
-    init () {
-        gameData = GameData
+    init (stratege: QuestionOrderStrategy, questions: [GameQuestion]) {
+        gameQuestions = questions
+        questionOrderStrategy = stratege
         availableHints = [.helpOfHall, .halfOfVariants, .callToFriend]
-        currentQuestionIndex = 0
-        correctAnswersCount = 0
-        currentQuestion = gameData[currentQuestionIndex]
+        correctAnswersCount = Observable(0)
+        setNextQuestion()
+    }
+
+    private func setNextQuestion() {
+        let availableQuestions = gameQuestions.filter { $0.isResolved == false }
+        let nextQuestionId = questionOrderStrategy.nextQuestionId(questions: availableQuestions)
+        currentQuestionIndex = gameQuestions.firstIndex { $0.id == nextQuestionId } ?? 0
     }
 }
 
 extension GameSession: GameSessionDelegate {
-
     func getQuestion() -> GameQuestion {
-        return currentQuestion;
+        return currentQuestion
     }
 
-    func nextQuestion() {
-        correctAnswersCount += 1
-        currentQuestionIndex += 1
-        currentQuestion = gameData[currentQuestionIndex]
+    func questionsCount() -> Int {
+        return gameQuestions.count
+    }
+
+    func resolveQuestion() {
+        correctAnswersCount.value += 1
+        gameQuestions[currentQuestionIndex].isResolved = true
+        setNextQuestion()
     }
 
     func checkAnswer(id: Int) -> Bool {
-        return id == gameData[currentQuestionIndex].correctAnswerId
+        return id == gameQuestions[currentQuestionIndex].correctAnswerId
+    }
+
+    func getProgressObservable() -> Observable<Int> {
+        return correctAnswersCount
     }
 
     func useHint(hint: GameHints) -> Bool {
@@ -57,11 +73,13 @@ extension GameSession: GameSessionDelegate {
         switch hint {
         case .callToFriend:
             friendHelpForQuestion = currentQuestionIndex
-            let availableAnswers = currentQuestion.answers.filter {$0.isEnabled}
+            let availableAnswers = currentQuestion.answers.filter { $0.isEnabled }
             friendHelpAnswer = availableAnswers[Int.random(in: 0..<availableAnswers.count)].id
         case .halfOfVariants:
             for _ in 0..<Int(currentQuestion.answers.count / 2) {
-                var incorrectAnswers = currentQuestion.answers.filter {$0.isEnabled && $0.id != currentQuestion.correctAnswerId}
+                var incorrectAnswers = currentQuestion.answers.filter {
+                    $0.isEnabled && ($0.id != currentQuestion.correctAnswerId)
+                }
                 incorrectAnswers[Int.random(in: 0..<incorrectAnswers.count)].isEnabled = false
             }
         case .helpOfHall:
@@ -69,13 +87,11 @@ extension GameSession: GameSessionDelegate {
             for i in 0..<Int(currentQuestion.answers.count - 1) {
                 let vote = Int.random(in: 0...totalChance)
                 totalChance -= vote
-                currentQuestion.answers[i].hallVote = vote
+                gameQuestions[currentQuestionIndex].answers[i].hallVote = vote
             }
-            currentQuestion.answers[currentQuestion.answers.count].hallVote = totalChance
+            gameQuestions[currentQuestionIndex].answers[currentQuestion.answers.count].hallVote = totalChance
         }
 
         return true
-    }   
-
+    }
 }
-

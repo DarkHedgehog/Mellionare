@@ -7,24 +7,30 @@
 
 import UIKit
 
-
-
 class GameViewController: UIViewController {
 
     @IBOutlet var questionLabel: UILabel!
     @IBOutlet var answersTable: UITableView!
+    @IBOutlet weak var progressLabel: UILabel!
 
     var gameSession: GameSessionDelegate?
     weak var gameControllerDelegate: GameControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        answersTable.delegate = self;
-        answersTable.dataSource = self;
-        gameSession = Game.shared.currentSession
-        updateSessionData()
 
+        progressLabel.text = ""
+        answersTable.delegate = self
+        answersTable.dataSource = self
+        gameSession = Game.shared.currentSession
+        gameSession?.getProgressObservable().addObserver(self, options: [.initial, .new]) { value, _ in
+            let totalCount = self.gameSession?.questionsCount() ?? 1
+            let percents = 100 * value / totalCount
+            let labelText = "Ответы: \(value) of \(totalCount)  (\(percents)% до победы)"
+            self.progressLabel.text = labelText
+        }
+
+        updateSessionData()
     }
 
     func updateSessionData() {
@@ -32,21 +38,14 @@ class GameViewController: UIViewController {
         questionLabel.text = question?.text
         answersTable.reloadData()
     }
-
-    
     func close() {
         dismiss(animated: true)
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidDisappear(_ animated: Bool) {
+        gameSession?.getProgressObservable().removeObserver(self)
+        super.viewDidDisappear(animated)
     }
-    */
-
 }
 
 
@@ -60,7 +59,8 @@ extension GameViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
             let question = gameSession?.getQuestion(),
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AnswerTableViewCell", for: indexPath) as? AnswerTableViewCell else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AnswerTableViewCell", for: indexPath)
+                as? AnswerTableViewCell else {
             preconditionFailure("Error cast to AnswerTableViewCell")
         }
 
@@ -75,29 +75,28 @@ extension GameViewController: UITableViewDataSource {
 extension GameViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath),
-              let gameSession = gameSession
-        else { return }
+            let gameSession = gameSession
+        else {
+            return
+        }
 
         let answerId = cell.tag
         let isCorrect = gameSession.checkAnswer(id: answerId)
 
-        if (isCorrect) {
-            gameSession.nextQuestion()
+        if isCorrect {
+            gameSession.resolveQuestion()
             updateSessionData()
         } else {
-
             let gameOverMessage = UIAlertController(title: "Game over", message: "Wrong answer", preferredStyle: .alert)
-            let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
-                self.gameControllerDelegate?.didEndGame()
-                DispatchQueue.main.async {
-                    self.navigationController?.popViewController(animated: true)
-                    self.dismiss(animated: true, completion: nil)
-                }
-              })
-            gameOverMessage.addAction(ok)
+            gameOverMessage.addAction(
+                UIAlertAction(title: "OK", style: .default) { _ in
+                    self.gameControllerDelegate?.didEndGame()
+                    DispatchQueue.main.async {
+                        self.navigationController?.popViewController(animated: true)
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                })
             self.present(gameOverMessage, animated: true)
         }
-
     }
-
 }

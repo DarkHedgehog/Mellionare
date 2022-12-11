@@ -12,4 +12,11 @@ struct GameResult: Codable {
     let answersDone: Int
     let answersTotal: Int
     let donePercent: Int
+
+    init (date: Date, answersDone: Int, answersTotal: Int) {
+        self.date = date
+        self.answersDone = answersDone
+        self.answersTotal = answersTotal
+        donePercent = Int( 100 * answersDone / answersTotal )
+    }
 }

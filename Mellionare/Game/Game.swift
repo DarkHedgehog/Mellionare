@@ -8,38 +8,59 @@
 import Foundation
 
 class Game {
-
     static let shared = Game()
 
+    // MARK: - private properties
     private(set) var gameResults: [GameResult] {
         didSet {
-            resultsCaretaker.saveResults(gameResults)
+            resultsCaretaker.saveState(gameResults)
         }
     }
-    private let resultsCaretaker = ResultsCaretacker()
 
+    private(set) var gameSettings: GameSettings
+
+    private let resultsCaretaker = Caretacker<[GameResult]>(key: "MellionareResults")
+    private let settingsCaretaker = Caretacker<GameSettings>(key: "MellionareSettings")
+    private let questionsCaretaker = Caretacker<[GameQuestion]>(key: "CustomQuestions")
+
+    // MARK: - Properties
     var currentSession: GameSession?
-
-
-    private init() {
-        gameResults = resultsCaretaker.loadResults()
+    var questionData = gameQuestionsData
+    var questionCustomData: [GameQuestion] {
+        didSet {
+            questionsCaretaker.saveState(questionCustomData)
+        }
     }
 
+    // MARK: - Constructors
+    private init() {
+        gameResults = resultsCaretaker.loadState() ?? []
+        gameSettings = settingsCaretaker.loadState() ?? GameSettings(questionOrder: .ordered)
+        questionCustomData = questionsCaretaker.loadState() ?? []
+    }
+
+    // MARK: - Functions
     func startNewSession() {
-        currentSession = GameSession()
+        let selectedStratege = gameSettings.questionOrder.strategyObject()
+        var questions: [GameQuestion] = []
+        questions.append(contentsOf: questionData)
+        questions.append(contentsOf: questionCustomData)
+        currentSession = GameSession(stratege: selectedStratege, questions: questions)
     }
 
     func endSession() {
-        guard let session = currentSession else { return }
+        guard let session = currentSession else {
+            return
+        }
 
-        let result = GameResult(date: Date(),
-                                answersDone: session.correctAnswersCount,
-                                answersTotal: session.gameData.count,
-                                donePercent: Int(100 * session.correctAnswersCount / session.gameData.count ))
+        let result = GameResult(
+            date: Date(),
+            answersDone: session.correctAnswersCount.value,
+            answersTotal: session.gameQuestions.count
+        )
 
         addResult(result)
-
-        currentSession = nil;
+        currentSession = nil
     }
 
     func addResult(_ result: GameResult) {
@@ -50,4 +71,7 @@ class Game {
         gameResults = []
     }
 
+    func applySettings() {
+        settingsCaretaker.saveState(gameSettings)
+    }
 }
